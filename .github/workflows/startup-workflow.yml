@@ -1,0 +1,44 @@
+name: Create App Service with Staging Deployment Slot
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  APP_NAME: "workshopappjdtest2" # update this for your app name
+  RESOURCE_GROUP: "workshop"     # update this or set this to the same RG as the app
+  LOCATION: "eastus"
+  PYTHON_VERSION: '3.7'
+
+permissions:
+  contents: read
+
+jobs:
+  createResources:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        continue-on-error: false
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }} # set this through a service principal and save as a GitHub secret
+          # https://github.com/marketplace/actions/azure-load-testing#azure-service-principal-for-rbac - don't run in Git Bash 
+
+      - name: Create Azure WebApp Resource
+        uses: azure/arm-deploy@v1
+        with:
+          resourceGroupName: ${{ env.RESOURCE_GROUP }}
+          template: ./arm_templates/app_service_arm.json
+          parameters: webAppName=${{ env.APP_NAME }} location="${{ env.LOCATION }}"
+
+  validateEnvs:
+    runs-on: ubuntu-latest
+    environment: Development
+
+    steps:
+      - name: Update PUBLISH_PROFILEs
+        run: echo "Ensure GH Secrets are set"
