@@ -1,12 +1,12 @@
 name: Create App Service with Staging Deployment Slot
 
 on:
-  push:
+  pull_request:
     branches: [ "main" ]
   workflow_dispatch:
 
 env:
-  APP_NAME: "workshopappjdtest2" # update this for your app name
+  APP_NAME: "workshopappjd" # update this for your app name
   RESOURCE_GROUP: "workshop"     # update this or set this to the same RG as the app
   LOCATION: "eastus"
   PYTHON_VERSION: '3.7'
@@ -37,7 +37,7 @@ jobs:
 
   validateEnvs:
     runs-on: ubuntu-latest
-    environment: Development
+    environment: Production
 
     steps:
       - name: Update PUBLISH_PROFILEs

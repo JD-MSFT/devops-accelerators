@@ -1,14 +1,12 @@
 name: Build and deploy Python app to Azure Web App
 
 on:
-  workflow_run:
-    workflows: [Create App Service with Staging Deployment Slot]
-    types:
-      - completed
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
 
 env:
-  APP_NAME: "workshopappjdtest2" # update this for your app name
+  APP_NAME: "workshopappjd" # update this for your app name
   RESOURCE_GROUP: "workshop" # update this or set this to the same RG as the app
   LOCATION: "eastus"
   PYTHON_VERSION: '3.7'              # set this to the Python version to use
@@ -65,6 +63,7 @@ jobs:
     permissions:
       contents: none
     runs-on: ubuntu-latest
+    envrionment: Production
 
     steps:
       - name: Download artifact from build job
