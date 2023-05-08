@@ -7,3 +7,7 @@ def test_create_joke():
 
 def test_create_joke1():
     assert create_joke("jd", "Software") == "Rockstar" + " " + "jd"
+
+
+# def test_create_joke2():
+#     assert create_joke("jd", "ceo") == "Chief Happiness Officer" + " " + "jd"

@@ -8,7 +8,9 @@ from flask import (
     send_from_directory,
 )
 from helpers.create_joke import create_joke
+from dotenv import load_dotenv
 
+load_dotenv()
 app = Flask(__name__)
 
 NEW_FEATURES = os.environ["NEW_FEATURES"]
@@ -21,11 +23,11 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/favicon.ico")
+@app.route("/images/clippy.png")
 def favicon():
     return send_from_directory(
         os.path.join(app.root_path, "static"),
-        "favicon.ico",
+        "images/clippy.png",
         mimetype="image/vnd.microsoft.icon",
     )
 
@@ -49,4 +51,4 @@ def hello():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")

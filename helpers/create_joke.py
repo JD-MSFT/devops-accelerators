@@ -1,7 +1,7 @@
-from helpers.convert_title import convert_title
 from helpers.joke_dict import joke_dict
 
 
 def create_joke(name, title):
-    converted_title = convert_title(title)
-    return joke_dict[converted_title] + " " + name
+    if title in joke_dict:
+        return joke_dict[title] + " " + name
+    return joke_dict["Generic"] + " " + name

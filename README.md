@@ -1,7 +1,18 @@
-# Deploy a Python (Flask) web app to Azure App Service - Sample Application
+# Welcome to my Greeter App!
 
-This is the sample Flask application for the Azure Quickstart [Deploy a Python (Django or Flask) web app to Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/quickstart-python).  For instructions on how to create the Azure resources and deploy the application to Azure, refer to the Quickstart article.
+The Greeter Application will ask for your name and job title, and return a customized response!
 
-A Django sample application is also available for the article at [https://github.com/Azure-Samples/msdocs-python-django-webapp-quickstart](https://github.com/Azure-Samples/msdocs-python-django-webapp-quickstart).
+# Developer Details
 
-If you need an Azure account, you can [create on for free](https://azure.microsoft.com/en-us/free/).
+## Start the application locally
+python -m venv env
+source env/Scripts/activate
+pip install -r requirements.txt
+python app.py
+
+This application uses feature flags to more granularly control deployments. Be sure to include an .env file- check example.env for reference.
+
+## Automation
+The dev.workflow is a CI process which will check code for linting, formatting, and ensure it passes unit tests. Configure Black Formatter locally, and regularly check that your unit tests are passing (python -m pytest).
+
+When happy with any changes in a feature branch, create a Pull Request to development. If accepted, the changes will be reflected in the staging App Service url.
