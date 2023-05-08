@@ -1,12 +1,13 @@
 name: Continuous Integration of Branch
 
 env:
-  AZURE_WEBAPP_NAME: your-app-name  # set this to the name of your Azure Web App
-  PYTHON_VERSION: '3.7'              # set this to the Python version to use
+  PYTHON_VERSION: '3.9' # set this to the Python version to use
 
 on:
-  # push:
-  #   branches: [ "feature/*" ]
+  push:
+    branches: [ "feature/*" ]
+  pull_request:
+    branches: [ "main", "development" ]
   workflow_dispatch:
 
 permissions:
@@ -14,6 +15,9 @@ permissions:
 
 jobs:
   build:
+    # strategy:
+    #   matrix:
+    #     version: [ '3.7', '3.9', '3.10' ]
     runs-on: ubuntu-latest
 
     steps:
@@ -27,10 +31,13 @@ jobs:
           sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main"
           sudo apt install microsoft-edge-dev
 
+      - uses: actions/checkout@v3
+
       - name: Set up Python version
         uses: actions/setup-python@v3.0.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
+          # python-version: ${{ matrix.version }}
           cache: 'pip'
 
       - name: Create and start virtual environment
@@ -39,14 +46,16 @@ jobs:
           source venv/bin/activate
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: | 
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       - name: Super-Linter
         uses: github/super-linter@v4.10.1
         env:
-          VALIDATE_PYTHON_PYLINT: true
           VALIDATE_PYTHON_BLACK: true
+          VALIDATE_PYTHON_PYLINT: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run pytest
