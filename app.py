@@ -7,8 +7,8 @@ from flask import (
     url_for,
     send_from_directory,
 )
-from helpers.create_joke import create_joke
 from dotenv import load_dotenv
+from helpers.create_joke import create_joke
 
 load_dotenv()
 app = Flask(__name__)
