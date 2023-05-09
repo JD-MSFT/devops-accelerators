@@ -61,7 +61,7 @@ jobs:
       - name: Create and run container
         run: |
           docker build -t python-app .
-          docker run -e NEW_FEATURES='on' -p 5000:5000 python-app
+          docker run -d -e NEW_FEATURES='on' -p 5000:5000 python-app
 
       - name: Run pytest
         run: python -m pytest
