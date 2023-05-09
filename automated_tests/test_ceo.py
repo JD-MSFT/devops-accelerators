@@ -24,5 +24,5 @@ class TestCEO:
         self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
         assert (
             self.driver.find_element(By.CSS_SELECTOR, ".display-6").text
-            == "Hello Chief Happiness Officer JD"
+            == "Hello Chief Happiness Officer"
         )
