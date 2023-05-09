@@ -17,7 +17,7 @@ class TestNamejd:
         # Test name: name-jd
         # Step # | name | target | value | comment
         # 1 | open | https://workshopappjd.azurewebsites.net/ |  |
-        self.driver.get("http://127.0.0.1:5000/")
+        self.driver.get("http://127.0.0.1:5005/")
         # 2 | setWindowSize | 966x527 |  |
         self.driver.set_window_size(1000, 600)
         # 3 | click | id=name |  |
