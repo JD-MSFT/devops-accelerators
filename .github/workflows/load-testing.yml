@@ -1,18 +1,21 @@
-name: Azure Load Test Development Envrionment
+name: Build and deploy Python app to Azure Web App Staging Slot
 
 on:
-  push:
-    branches: [ "feature/automated-tests" ]
+  workflow_run:
+    workflows: ["Build and deploy Python app to Azure Web App Staging Slot"]
+    types:
+      - completed
   workflow_dispatch:
 
 env:
-  APP_NAME: "workshopappjd" # update this for your app name
-  LOAD_TEST_RESOURCE: "workshop-loadtest" # update this to how you want to name the load test resource
-  LOAD_TEST_RESOURCE_GROUP: "workshop" # update this or set this to the same RG as the app
+  APP_NAME: ${{ vars.WEBAPP_NAME }}
+  LOAD_TEST_RESOURCE: ${{ vars.LOAD_TEST_RESOURCE }}
+  LOAD_TEST_RESOURCE_GROUP: ${{ vars.RESOURCE_GROUP }}
   LOCATION: "eastus"
 
 jobs:
   test:
+    environment: Development
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
