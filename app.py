@@ -8,6 +8,7 @@ from flask import (
     send_from_directory,
 )
 from helpers.create_joke import create_joke
+from helpers.ai import ask
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -35,7 +36,8 @@ def hello():
     name = request.form.get("name")
     if NEW_FEATURES == "on":
         title = request.form.get("title")
-        joke = create_joke(name, title)
+        # joke = create_joke(name, title)
+        joke = ask(f"{name} - {title}")
         if name:
             return render_template("hello_joke_feature.html", joke=joke)
         print("Request for hello page received with no name or blank name -- redirecting")
