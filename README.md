@@ -5,6 +5,7 @@ The Greeter Application will ask for your name and job title, and return a custo
 # Developer Details
 
 ## Start the application locally
+Ensure you have Python 3.8 installed. Then, run the following commands:
 python -m venv env
 source env/Scripts/activate
 pip install -r requirements.txt
